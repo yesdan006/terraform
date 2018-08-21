@@ -1,0 +1,43 @@
+{
+    "variables":
+    {
+    "aws_region" : "us-east-2",
+    "aws_access_key": "",
+    "aws_secret_key":""
+    },
+
+    "builders":[
+        {
+        
+            "type": "amazon-ebs",
+            "access_key":"{{user `aws_access_key`}}",
+            "secret_key":"{{user `aws_secret_key`}}",
+            "region": "{{user `aws_region`}}",
+            "source_ami": "ami-7d132e18",
+            "instance_type": "t2.micro",
+            "ssh_username": "ubuntu",
+            "ami_name": "packer-nginx"
+
+
+        }
+    ],
+
+    "provisioners":[
+        
+        {
+            "type":"shell",
+           "script":"tomcat.sh"
+        
+        },
+        {
+            "type":"shell", 
+        "inline": [
+        "sudo chmod 777 -R /var/lib/tomcat7/webapps",
+        "sudo wget https://github.com/manikantagaddam/sdan-practice/blob/master/jenkins.war -O /var/lib/tomcat7/webapps/jenkins.war",
+         "sudo service tomcat7 start"
+          ]
+        }
+    ]
+}
+
+  

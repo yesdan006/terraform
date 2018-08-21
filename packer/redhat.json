@@ -1,0 +1,29 @@
+{ 
+    
+    "builders":[
+    {
+    
+        "type": "amazon-ebs",
+        "access_key":"",
+        "secret_key":"",
+        "region": "us-east-2",
+        "source_ami": "ami-03291866",
+        "instance_type": "t2.micro",
+        "ssh_username": "ec2-user",
+        "ami_name": "packer-redhat"
+
+
+    }
+
+    ],
+    "provisioners": [{
+        "inline": [
+          "sudo rpm -ivh http://nginx.org/packages/rhel/7/noarch/RPMS/nginx-release-rhel-7-0.el7.ngx.noarch.rpm",
+          "sudo yum -y update",
+          "sudo yum -y install nginx",
+          "sudo systemctl enable nginx.service"
+        ],
+        "inline_shebang": "/bin/sh -x",
+        "type": "shell"
+      }]
+}

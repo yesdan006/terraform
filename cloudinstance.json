@@ -1,0 +1,45 @@
+{
+"AWSTemplateFormatVersion":"2010-09-09",
+"Description":"creating instances using cloud formation in aws",
+"Parameters":
+{
+
+"keypair": {
+    "Description": "keypair",
+    "Type":"AWS::EC2::KeyPair::KeyName"
+},
+"imageid":
+{
+"Type":"AWS::EC2::Image::Id"
+}
+},
+"Resources" :
+{
+"cloudinstance": {
+        "Type": "AWS::EC2::Instance",
+        "Properties": {
+            "KeyName": { "Ref": "keypair" },
+            "ImageId": {"Ref" : "imageid" },
+            "InstanceType": "t2.micro",
+            "SecurityGroupIds" : ["sg-0e9c5c6c633efd80b"],
+            "UserData":{
+              "Fn::Base64":{
+                  "Fn::Join":[
+                      "",
+                  [
+                   "#!bin/bash -ex",
+                   "sudo apt-get update",
+                   "sudo apt-get install nginx -y"
+                                    ]                  ]
+                  }
+              }
+
+            }
+             
+    }
+            }
+}
+
+
+
+
