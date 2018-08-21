@@ -1,10 +1,10 @@
 variable "accesskey"
 {
-default="AKIAI2F437I6KIBKIHNQ"
+default=""
 }
 variable "secretkey"
 {
-default="ifkNS1l+SfJ87lJsZCWi7Mz4uG4u8Pr3ldEHxSNU"
+default=""
 }
 variable "privatekey"
 {
