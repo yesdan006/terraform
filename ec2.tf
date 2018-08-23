@@ -1,3 +1,4 @@
+#http://www.admintome.com/blog/provisioning-infrastructure-with-terraform/
 provider "aws"
 {
 access_key= ""
