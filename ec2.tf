@@ -5,19 +5,24 @@ access_key= ""
 secret_key= "",
 region ="us-east-2" 
 }
+
+variable "count" {
+default=2
+}
 resource "aws_key_pair" "terraform_ec2_key1" {
   key_name = "terraform_ec2_key1"
-  public_key="paste ssh-key gen key path is /root/.ssh/id_ras.pub"
+  public_key="ssh-keygen /root/.ssh/id_rsa.pub"
 }
     resource "aws_instance" "terraformmachine"
 {
 
-    ami="ami-7d132e18",
-    instance_type="t2.micro",
+    ami="ami-7d132e18"
+    count="${var.count}"
+    instance_type="t2.micro"
     key_name="${aws_key_pair.terraform_ec2_key1.key_name}"
-tags
-{
-Name="terraform"
+
+tags {
+Name="${format("test-%01d",count.index+1)}"
 }
 connection 
 {
@@ -31,4 +36,5 @@ connection
                  "sudo apt-get install nginx -y"]
 }
 }
+
 
