@@ -11,9 +11,6 @@ variable "aws_secretkey" {
 
 }
 
-
-
-
 variable "aws_region" {
   default= "us-east-1"
 }
